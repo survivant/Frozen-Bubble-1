@@ -110,7 +110,7 @@ var BubblesGrid_Controller = (function (inWinFunc, inGameOverFunc, inGameControl
         for (bubble in bubblesTmp) {
             if (
                     (bubblesTmp[bubble] !== null) &&
-                    (bubblesTmp[bubble].bubble.getType() == currentType) &&
+                    (bubblesTmp[bubble].bubble.getType() === currentType) &&
                     (Math.abs(bubblesTmp[bubble].col - inBubbleInfo.col) <= 1) &&
                     (Math.abs(bubblesTmp[bubble].row - inBubbleInfo.row) <= 1)) {
 

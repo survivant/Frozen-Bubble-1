@@ -1,46 +1,40 @@
 /**
-  * Author: Alonso Vidales <alonso.vidales@tras2.es>
-  * Date: 2012-03-26
+
+  *Classe utilisé pour controler les bulles(collision,mouvement,image,etc)
   *
-  * This class is used to control all the bubble features,
-  * the image, move it, check collisions, etc
-  *
-  * @see config.bubbles
-  * @see AnimatedImage_Tool
-  *
-  * @param inX <int>: The pixels of the X axis where the bubble will be created
-  * @param inY <int>: The pixels of the T axis where the bubble will be created
-  * @param inType <int>: The type of the  bubble to create
+  * @param inX <int>: Axe X où la bulle va etre creer
+  * @param inY <int>: Axe Y où la bulle va etre creer
+  * @param inType <int>: Type de la bulle
   *
   */
+ 
+
+ 
 var Bubble_Controller = (function(inX, inY, inType) {
-	// Will contain the image, @see AnimatedImage_Tool
+	// Contient l'image
 	var image = null;
-	// The type as a integer of the bubble (the color)
+        //Type  de la bulle (int)(couleur)
 	var type = inType;
 
 	/**
-	  * The next method returns the point where the bubble will bounce
-	  * according to the given angle in degrees  and the laterals of
-	  * the pitch
-	  *
+          *Retourne le point où la bulle va rebondir en accord avec le degree et le terrain
+
 	  * @param inAngle <int>: The degrees that the bubble have taking the
-	  *	Y axe as reference
+	  *	Y axe as referenceLe degrees
 	  *
-	  * @return <object>: Return the cordinates of the point where the bounce
-	  * 	will be produced in pixel in an object with the next strucutre:
+	  * @return <object>: retourne les coordonnées  du point où la balle va rebondir
 	  *		{
 	  *			x: <int>,
 	  *			y: <int>}
 	  *
 	  */
+         
 	var calcBounce = function(inAngle) {
 		var point, b, a, y = null;
-		// Convert the angle to radians
+		// Convertit l'angle en radians
 		var angle = (90 - Math.abs(inAngle)) * Math.PI / 180;
 
-		// Check if the bubble goes to the right in order to calculate the distance
-		// of the X axis
+		// axis Regarde si la bulle va à droite afin de calcuer la distance de l'axe X
 		if (inAngle > 0) {
 			b = config.ballsField.topRight.x - image.getX() - config.bubbles.width;
 			a = b * Math.tan(angle);
@@ -63,31 +57,30 @@ var Bubble_Controller = (function(inX, inY, inType) {
 	};
 
 	// Public scope
+        
+        
 	var my = {
 		/**
-		  * Destroy the bubble moving it first to a given coordinates, and later to
-		  * the bottom of the window, after all the movements destroy the element
-		  *
-		  * @param inJumpX <int>: The number in pixels of the X axe to move the ball
-		  * @param inJumpY <int>: The number in pixels of the Y axe to move the ball
+		  * Detache la bulle de ses coordonnées et la supprime une fois arrivé en bas de la fenetre.
+		  * @param inJumpX <int>: point X où la bulle va parcourir
+		  * @param inJumpY <int>: point Y où la bulle va parcourir
 		  *
 		  */
 		destroy: function(inJumpX, inJumpY) {
-			// First jump
+			// Premier saut
 			my.moveTo(inJumpX, inJumpY, function() {
-				// Move to bottom
+				// Descend en bas de la fenetre
 				my.moveTo(inJumpX, config.windowConf.height, function() {
-					// Destroy the bubble
+					// Destruction de la bulle
 					image.hide();
 					image = null;
 				});
 			});
 		},
 
-		/**
-		  * Launch a bubble from the shooter using a determinate angle
-		  *
-		  * @param inAngle <int>: The initial angle that the shooter have at the moment of the launch
+		/**		  
+		  * Lance une bulle du lanceur avec un angle determiné
+		  * @param inAngle <int>: L'angle initial que le lanceur a au moment du tir
 		  * @param inAngle <object Compressor_Controller>: The object of the main compressor
 		  *
 		  */
@@ -100,13 +93,12 @@ var Bubble_Controller = (function(inX, inY, inType) {
 		},
 
 		/**
-		  * Move the bubble to a determinate position, sliding the bubble till the objective
-		  *
+		
+		  * Bouge la bulle à une position determiné,glisse la bulle jusqu'a l'objectif
 		  * @param inX <int>: The pixels of the X axe to move the bubble where
 		  * @param inY <int>: The pixels of the Y axe to move the bubble where
-		  * @param inCallBack <function>: The function to be called after the movement ends
-		  * @param inCheckCollFunc <function>: The function to call each step the bubble
-		  *	gives till the objective is reached
+		  * @param inCallBack <function>: la fonction appelé apres la fin du mouvement
+		  * @param inCheckCollFunc <function>: la fonction a appelé à chaque etape du mouvement jusqu'a que l'objectif soit atteint
 		  *
 		  */
 		moveTo: function(inX, inY, inCallBack, inCheckCollFunc) {
@@ -135,9 +127,7 @@ var Bubble_Controller = (function(inX, inY, inType) {
 		},
 
 		/**
-		  * This method creates an image to add it as mask over the bubble image
-		  * that creates the frozen ilusion
-		  *
+                  * creer un image a ajouter à la bulle pour lui donner un effet gelé	  
 		  */
 		froze: function() {
 			var frozeImage = new AnimatedImage_Tool('bubble_frozzen');

@@ -189,28 +189,7 @@ var Player_Controller = (function(inCompressor) {
 	  * all them again
 	  *
 	  */
-	var resetHurry = function() {
-		if (hurryTimeout !== null) {
-			clearTimeout(hurryTimeout);
-		}
-		if (alertTimeout !== null) {
-			clearTimeout(alertTimeout);
-			UserAlerts_Tool.removeAlert();
-			SoundManager_Tool.stop(config.player.hurrySnd);
-		}
-		hurryTimeout = setTimeout(function() {
-			// The time to show the alert is finished, ahor the alert message
-			SoundManager_Tool.play(config.player.hurrySnd, true);
-
-			UserAlerts_Tool.showAlert('hurry', true);
-			alertTimeout = setTimeout(function() {
-				// The max timeout ends, stop the aler message and launch the bubble
-				SoundManager_Tool.stop(config.player.hurrySnd);
-				shoot();
-				UserAlerts_Tool.removeAlert();
-			}, config.player.timeToShowHurry);
-		}, config.player.timeToShoot);
-	};
+	
 
 	return {
 		/**

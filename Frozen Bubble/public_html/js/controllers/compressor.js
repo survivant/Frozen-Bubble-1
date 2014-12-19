@@ -32,7 +32,6 @@ var Compressor_Controller = (function(inWinFunc, inGameOverFunc, inGameControlle
 	  *
 	  */
 	var advance = function() {
-		SoundManager_Tool.play(config.compressor.newRootSnd);
 
 		// Creates a new extensor to be added to the string of extensors
 		var extensor = new AnimatedImage_Tool('compressor_extender');
